@@ -1,15 +1,17 @@
-//** Events
-//* Zustände der Ampel (one hot)
-#define HS_GRUEN (1 << 0)  // Hauptstraße hat grün
-#define NS_GRUEN (1 <<)    // Nebenstraße und Fußgänger haben grün
+#include "events.h"
 
-//* Timer events (one hot)
-#define HS_TIMER_TICK (1 << 0)  // Hauptstraße hatte für best. Zeit grün
-#define NS_TIMER_TICK (1 << 1)  // Nebenstraße und Fußgänger hatten für best. Zeit grün
+//** Events  (one hot)
+//* Zustände der Ampel
+#define HS_GRUEN ((event_type)(1 << 0))  // Hauptstraße hat grün
+#define NS_GRUEN ((event_type)(1 << 1))  // Nebenstraße und Fußgänger haben grün
 
-//* Events (one hot)
-#define FG_EVENT (1 << 0)  // Fußgänger drückt Knopf
-#define NS_EVENT (1 << 1)  // Auto fährt auf Induktionsplatte
+//* Timer events
+#define HS_TIMER_TICK ((event_type)(1 << 2))  // Hauptstraße hatte für best. Zeit grün
+#define NS_TIMER_TICK ((event_type)(1 << 3))  // Nebenstraße und Fußgänger hatten für best. Zeit grün
 
-//** Timer (one hot)
-#define TRAFFIC_LIGHT (1 << 0)  // Timer for current phase
+//* Events
+#define FG_EVENT ((event_type)(1 << 4))  // Fußgänger drückt Knopf
+#define NS_EVENT ((event_type)(1 << 5))  // Auto fährt auf Induktionsplatte
+
+//** Timer (0 - 7)
+#define TRAFFIC_LIGHT 0  // Timer for current phase
