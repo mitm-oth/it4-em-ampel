@@ -6,12 +6,12 @@
 void (*volatile timer_func[8])() = {0};
 volatile uint32_t timer_max[8] = {0};
 volatile uint32_t timer[8] = {0};
-volatile uint8_t Tenable = 0;
+volatile timer_t Tenable = 0;
 
 ISR(TIMER1_OVF_vect) {
     TCNT1 = tcnt1_start;  // Start value of timer
 
-    for (uint8_t t = 0; t < 8; t++) {          // go through all timers
+    for (timer_t t = 0; t < 8; t++) {          // go through all timers
         if (Tenable & (1 << t)) {              // if enabled
             if (timer[t]++ >= timer_max[t]) {  // add one and check tick
                 timer[t] -= timer_max[t];      // if limit reached reset timer
@@ -30,19 +30,19 @@ void setupTimers() {
     sei();
 }
 
-void declareTimer(uint8_t t, uint32_t delay_us, void (*func)()) {
+void declareTimer(timer_t t, uint32_t delay_us, void (*func)()) {
     timer_max[t] = delay_us;
     timer_func[t] = func;
 };
 
-void startTimer(uint8_t t) {
+void startTimer(timer_t t) {
     cli();
     timer[t] = 0;
     Tenable |= 1 << t;
     sei();
 };
 
-void cancelTimer(uint8_t t) {
+void cancelTimer(timer_t t) {
     cli();
     Tenable &= ~(1 << t);
     sei();

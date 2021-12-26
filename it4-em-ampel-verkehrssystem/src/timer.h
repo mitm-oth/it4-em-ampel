@@ -1,6 +1,11 @@
+#ifndef __TIMER_H_
+#define __TIMER_H_
+
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <stdint.h>
+
+typedef uint8_t timer_t;
 
 void setupTimers();
 
@@ -11,8 +16,10 @@ void setupTimers();
  * @param delay_us Timer delay in 10^-6 s
  * @param func     Timer callback on Tick
  */
-void declareTimer(uint8_t t, uint32_t delay_us, void (*func)());
+void declareTimer(timer_t t, uint32_t delay_us, void (*func)());
 
-void startTimer(uint8_t t);
+void startTimer(timer_t t);
 
-void cancelTimer(uint8_t t);
+void cancelTimer(timer_t t);
+
+#endif  // __TIMER_H_

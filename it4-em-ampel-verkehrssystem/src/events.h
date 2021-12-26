@@ -1,9 +1,19 @@
+#ifndef __EVENTS_H_
+#define __EVENTS_H_
+
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdlib.h>  // Only for debug()
 
-typedef uint16_t event_type;  //todo change to 8 Bit if possible
+#include "uart.h"  // Only for debug()
 
-void set_event(event_type event);
-void clear_event(event_type event);
+typedef uint16_t event_t;  //todo change to 8 Bit if possible
 
-bool event_is_set(event_type event);
+void EVENT_set(event_t event);
+void EVENT_clear(event_t event);
+
+bool EVENT_is_set(event_t event);
+
+void EVENT_debug();
+
+#endif __EVENTS_H_

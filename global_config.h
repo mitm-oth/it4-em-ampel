@@ -1,19 +1,28 @@
+#ifndef __GLOBAL_CONFIG_H_
+#define __GLOBAL_CONFIG_H_
+
+#include <stdint.h>
+
 //* Betriebszustände des Ampelsystems
-#define HIGH_FREQ_OP 0x00
-#define LOW_FREQ_OP 0x01
-#define REMOTE_FREQ_OP 0x02
-#define DEGRADED_OP 0x03
+typedef uint8_t freq_op_t;
+#define STATE_HIGH_FREQ_OP ((freq_op_t)0x00)
+#define STATE_LOW_FREQ_OP ((freq_op_t)0x01)
+#define STATE_REMOTE_FREQ_OP ((freq_op_t)0x02)  // Lights switched off
+#define STATE_DEGRADED_OP ((freq_op_t)0x03)
 
 //* Error codes
-#define NO_ERROR 0x00
-#define RED_LIGHT_MR 0x10
-#define RED_LIGHT_SR 0x11
-#define RED_LIGHT_P 0x12
-#define YELLOW_LIGHT_SR 0x13
-#define FLASH_ERROR 0x20
-#define SRAM_ERROR 0x21
-#define STACK_ERROR 0x22
-#define SW_ERROR 0x80
-#define TIME_ERROR 0x81
+typedef uint8_t error_t;
+#define ERROR_NO_ERROR (error_t 0x00)
+#define ERROR_RED_LIGHT_MR (error_t 0x10)
+#define ERROR_RED_LIGHT_SR (error_t 0x11)
+#define ERROR_RED_LIGHT_P (error_t 0x12)
+#define ERROR_YELLOW_LIGHT_SR (error_t 0x13)
+#define ERROR_FLASH_ERROR (error_t 0x20)
+#define ERROR_SRAM_ERROR (error_t 0x21)
+#define ERROR_STACK_ERROR (error_t 0x22)
+#define ERROR_SW_ERROR (error_t 0x80)
+#define ERROR_TIME_ERROR (error_t 0x81)
 
 //* SPI Stuff
+
+#endif  // __GLOBAL_CONFIG_H_
