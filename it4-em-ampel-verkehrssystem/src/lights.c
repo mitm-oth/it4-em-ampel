@@ -12,7 +12,7 @@
 #define FG_G 6
 #define FG_R 7
 
-volatile bool lights[9] = {false};
+volatile bool lights[8] = {0};
 
 void on(uint8_t light_pos) {
     lights[light_pos] = ON;
@@ -24,10 +24,31 @@ void off(uint8_t light_pos) {
     //todo switch hardware lights
 }
 
-void LIGHT_debug() {
-    USART_Transmit_s("| HS_G | HS_Y | HS_R | NS_G | NS_Y | NS_R | FG_G | FG_R |\n");
+//todo set events via interrupt, use edge detection
+// bool LIGHTS_FG_is_pressed() {
+//     return !(PORTB & PB0);
+// }
+
+//todo set events via interrupt, use edge detection
+// bool LIGHTS_NS_is_pressed() {
+//     return !(PORTB & PB1);
+// }
+
+void LIGHT_Init() {
+    // Set pins PD2-PD7 as output (as described in pinout.md)
+    DDRD |= (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7);
+    // Set pins PB0-PB1 as input (as described in pinout.md)
+    DDRB &= ~((1 << PB0) | (1 << PB1));
+    PORTB |= (1 << PB0) | (1 << PB1);
     for (int i = 0; i < sizeof(lights) / sizeof(bool); i++) {
-        lights[i] ? USART_Transmit_s("| off|") : USART_Transmit_s("| on |");
+        off(i);
+    }
+}
+
+void LIGHT_debug() {
+    USART_Transmit_s("| HS_G | HS_Y | HS_R | NS_G | NS_Y | NS_R | FG_G | FG_R |\n|");
+    for (int i = 0; i < sizeof(lights) / sizeof(bool); i++) {
+        lights[i] ? USART_Transmit_s(" on   |") : USART_Transmit_s(" off  |");
     }
     USART_Transmit('\n');
 }
@@ -76,7 +97,7 @@ void LIGHT_HFOP_set_NS() {
     off(NS_R);
     on(NS_Y);
     LIGHT_debug();
-    _delay_ms(TIME_HFOP_NS_YELLOW);
+    _delay_ms(TIME_HFOP_NS_YELLOW_TO_GREEN);
 
     //* NS yellow -> FG green
     on(FG_G);

@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>   // Only for debug()
 #include <stdlib.h>  // Only for debug()
 
 #include "uart.h"  // Only for debug()
@@ -16,4 +17,4 @@ bool EVENT_is_set(event_t event);
 
 void EVENT_debug();
 
-#endif __EVENTS_H_
+#endif  // __EVENTS_H_

@@ -7,7 +7,7 @@
 
 typedef uint8_t timer_t;
 
-void setupTimers();
+void TIMER_Init();
 
 /**
  * @brief 
@@ -16,10 +16,10 @@ void setupTimers();
  * @param delay_us Timer delay in 10^-6 s
  * @param func     Timer callback on Tick
  */
-void declareTimer(timer_t t, uint32_t delay_us, void (*func)());
+void TIMER_Declare(timer_t t, uint32_t delay_us, void (*func)());
 
-void startTimer(timer_t t);
+void TIMER_Start(timer_t t);
 
-void cancelTimer(timer_t t);
+void TIMER_Cancel(timer_t t);
 
 #endif  // __TIMER_H_
