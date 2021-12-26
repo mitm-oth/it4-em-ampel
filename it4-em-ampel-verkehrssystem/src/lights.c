@@ -14,35 +14,96 @@
 
 volatile bool lights[8] = {0};
 
+// FG pressd button
+ISR(INT0_vect) {
+    set_event(EVENT_FG_ARRIVED);
+}
+// Car is on induction plate
+ISR(INT1_vect) {
+    set_event(EVENT_NS_ARRIVED);
+}
+
 void on(uint8_t light_pos) {
     lights[light_pos] = ON;
-    //todo switch hardware lights
+    switch (light_pos) {
+        case HS_G:
+            PORTB |= (1 << PORTB0);
+            break;
+        case HS_Y:
+            PORTB |= (1 << PORTB1);
+            break;
+        case HS_R:
+            PORTD |= (1 << PORTD4);
+            break;
+        case NS_G:
+            PORTD |= (1 << PORTD5);
+            break;
+        case NS_Y:
+            PORTD |= (1 << PORTD6);
+            break;
+        case NS_R:
+            PORTD |= (1 << PORTD7);
+            break;
+        case FG_G:
+            // No pin connected here
+            break;
+        case FG_R:
+            // No pin connected here
+            break;
+
+        default:
+            break;
+    }
 }
 
 void off(uint8_t light_pos) {
     lights[light_pos] = OFF;
-    //todo switch hardware lights
+    switch (light_pos) {
+        case HS_G:
+            PORTB &= ~(1 << PORTB0);
+            break;
+        case HS_Y:
+            PORTB &= ~(1 << PORTB1);
+            break;
+        case HS_R:
+            PORTD &= ~(1 << PORTD4);
+            break;
+        case NS_G:
+            PORTD &= ~(1 << PORTD5);
+            break;
+        case NS_Y:
+            PORTD &= ~(1 << PORTD6);
+            break;
+        case NS_R:
+            PORTD &= ~(1 << PORTD7);
+            break;
+        case FG_G:
+            // No pin connected here
+            break;
+        case FG_R:
+            // No pin connected here
+            break;
+
+        default:
+            break;
+    }
 }
 
-//todo set events via interrupt, use edge detection
-// bool LIGHTS_FG_is_pressed() {
-//     return !(PORTB & PB0);
-// }
-
-//todo set events via interrupt, use edge detection
-// bool LIGHTS_NS_is_pressed() {
-//     return !(PORTB & PB1);
-// }
-
 void LIGHT_Init() {
-    // Set pins PD2-PD7 as output (as described in pinout.md)
-    DDRD |= (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7);
-    // Set pins PB0-PB1 as input (as described in pinout.md)
-    DDRB &= ~((1 << PB0) | (1 << PB1));
-    PORTB |= (1 << PB0) | (1 << PB1);
+    // Set pins PD4-PD7 and  PB0-PB1 as output (as described in pinout.md)
+    DDRD |= (1 << DDD4) | (1 << DDD5) | (1 << DDD6) | (1 << DDD7);  // As outputs
+    DDRB |= (1 << DDB0) | (1 << DDB1);                              // As Outputs
+
+    // Set pins PD2-PD3 as input (as described in pinout.md)
+    DDRD &= ~((1 << DDD2) | (1 << DDD3));    // As Inputs
+    PORTB |= (1 << PORTB0) | (1 << PORTB1);  // Pullups
+    EICRA |= (1 << ISC01) | (1 << ISC11);    // Interrupt triggered by on falling edge
+    EIMSK |= (1 << INT0) | (1 << INT1);      // Enable
+
     for (int i = 0; i < sizeof(lights) / sizeof(bool); i++) {
         off(i);
     }
+    sei();
 }
 
 void LIGHT_debug() {
