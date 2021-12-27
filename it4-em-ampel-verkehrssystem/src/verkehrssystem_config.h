@@ -26,11 +26,11 @@ extern volatile freq_op_t freq_op;
 //** Times
 //*  High frequency operation
 //todo optimize times
-#define TIME_HFOP_HS_GREEN_PHASE 10000  //[ms]
-#define TIME_HFOP_NS_GREEN_PHASE 10000  //[ms]
-#define TIME_HFOP_NS_YELLOW 100         //[ms]
-#define TIME_HFOP_NS_YELLOW_RED 100     //[ms]
-#define TIME_HFOP_HS_YELLOW 100         //[ms]
+#define TIME_HFOP_HS_GREEN_PHASE 7000  //[ms]
+#define TIME_HFOP_NS_GREEN_PHASE 7000  //[ms]
+#define TIME_HFOP_NS_YELLOW 100        //[ms]
+#define TIME_HFOP_NS_YELLOW_RED 100    //[ms]
+#define TIME_HFOP_HS_YELLOW 100        //[ms]
 
 #define TIME_HFOP_HS_YELLOW 100          //[ms]
 #define TIME_HFOP_HS_YELLOW_RED 100      //[ms]

@@ -190,6 +190,7 @@ void LIGHT_LFOP__pause_timer_callback() {
 }
 
 void LIGHT_LFOP() {
+    TIMER_Cancel(TIMER_TRAFFIC_LIGHT);
     for (int i = 0; i < sizeof(lights) / sizeof(bool); i++) {
         off(i);
     }

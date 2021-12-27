@@ -26,22 +26,28 @@ void high_freq_op() {
     switch (traffic_light_state) {
         case STATE_HS_GRUEN:
             if (EVENT_is_set(EVENT_HS_TIMER_TICK) && (EVENT_is_set(EVENT_FG_ARRIVED) || EVENT_is_set(EVENT_NS_ARRIVED))) {  // switch to NS traffic now
+                EVENT_clear(EVENT_HS_TIMER_TICK);
+                EVENT_clear(EVENT_NS_TIMER_TICK);
+                EVENT_clear(EVENT_FG_ARRIVED);
+                EVENT_clear(EVENT_NS_ARRIVED);
+                TIMER_Cancel(TIMER_TRAFFIC_LIGHT);
                 USART_Transmit_s("Switching from HS to NS.\n");
                 traffic_light_state = STATE_NS_GRUEN;
+                LIGHT_HFOP_set_NS();
                 TIMER_Declare(TIMER_TRAFFIC_LIGHT, (uint32_t)TIME_HFOP_NS_GREEN_PHASE, NS_timer_callback);
                 TIMER_Start(TIMER_TRAFFIC_LIGHT);
-                LIGHT_HFOP_set_NS();
             }
             break;
         case STATE_NS_GRUEN:
             if (EVENT_is_set(EVENT_NS_TIMER_TICK)) {  // switch to HS traffic now
+                EVENT_clear(EVENT_HS_TIMER_TICK);
+                EVENT_clear(EVENT_NS_TIMER_TICK);
+                TIMER_Cancel(TIMER_TRAFFIC_LIGHT);
                 USART_Transmit_s("Switching from NS to HS.\n");
                 traffic_light_state = STATE_HS_GRUEN;
+                LIGHT_HFOP_set_HS();
                 TIMER_Declare(TIMER_TRAFFIC_LIGHT, (uint32_t)TIME_HFOP_HS_GREEN_PHASE, HS_timer_callback);
                 TIMER_Start(TIMER_TRAFFIC_LIGHT);
-                EVENT_clear(EVENT_FG_ARRIVED);
-                EVENT_clear(EVENT_NS_ARRIVED);
-                LIGHT_HFOP_set_HS();
             }
         default:
             break;
@@ -56,7 +62,7 @@ void remote_freq_op() {
 }
 
 //todo spi interface
-//todo low freq op
+//todo lfop testen
 //todo timer stop bevore declare?
 
 void handle_communication() {
