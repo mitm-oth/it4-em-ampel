@@ -170,19 +170,20 @@ void LIGHT_HFOP_set_NS() {
     on(NS_G);
 }
 
-extern void LIGHT_LFOP__pause_timer_callback();
+extern void LIGHT_LFOP_pause_timer_callback();
 void LIGHT_LFOP_on_timer_callback() {
-    USART_Transmit_s("Blink\n");
     if (freq_op == STATE_LOW_FREQ_OP) {
+        TIMER_Cancel(TIMER_TRAFFIC_LIGHT);
         on(NS_Y);
-        TIMER_Declare(TIMER_TRAFFIC_LIGHT, (uint32_t)TIME_LFOP_BLINK_ON, LIGHT_LFOP__pause_timer_callback);
+        TIMER_Declare(TIMER_TRAFFIC_LIGHT, (uint32_t)TIME_LFOP_BLINK_ON, LIGHT_LFOP_pause_timer_callback);
         TIMER_Start(TIMER_TRAFFIC_LIGHT);
     }
 }
 
-void LIGHT_LFOP__pause_timer_callback() {
-    USART_Transmit_s("Blink\n");
+void LIGHT_LFOP_pause_timer_callback() {
+    USART_Transmit_s("Blink!\n");
     if (freq_op == STATE_LOW_FREQ_OP) {
+        TIMER_Cancel(TIMER_TRAFFIC_LIGHT);
         off(NS_Y);
         TIMER_Declare(TIMER_TRAFFIC_LIGHT, (uint32_t)TIME_LFOP_BLINK_PAUSE, LIGHT_LFOP_on_timer_callback);
         TIMER_Start(TIMER_TRAFFIC_LIGHT);

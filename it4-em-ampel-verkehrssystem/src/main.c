@@ -56,6 +56,8 @@ void high_freq_op() {
 
 void low_freq_op() {
     LIGHT_LFOP();
+    while (freq_op == STATE_LOW_FREQ_OP)
+        _delay_ms(100);
 }
 
 void remote_freq_op() {
@@ -83,7 +85,7 @@ void MAIN_Init() {
     USART_Transmit(' ');
     USART_Transmit_s(__TIME__);
     USART_Transmit('\n');
-    freq_op = STATE_HIGH_FREQ_OP;
+    freq_op = STATE_LOW_FREQ_OP;  //STATE_HIGH_FREQ_OP;
     traffic_light_state = STATE_NS_GRUEN;
     EVENT_set(EVENT_NS_TIMER_TICK);
 

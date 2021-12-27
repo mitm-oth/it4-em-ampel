@@ -31,8 +31,10 @@ void TIMER_Init() {
 }
 
 void TIMER_Declare(timer_t t, uint32_t delay_us, void (*func)()) {
+    cli();
     timer_max[t] = delay_us * 25;  //todo @Emergency1999: /25 was a quick fix but not accurate //todo ms
     timer_func[t] = func;
+    sei();
 };
 
 void TIMER_Start(timer_t t) {
