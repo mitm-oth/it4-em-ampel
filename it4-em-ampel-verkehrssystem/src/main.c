@@ -61,14 +61,12 @@ void low_freq_op() {
 }
 
 void remote_freq_op() {
+    while (freq_op == STATE_REMOTE_FREQ_OP)
+        _delay_ms(100);
 }
 
 //todo spi interface
-//todo lfop testen
-//todo timer stop bevore declare?
-
 void handle_communication() {
-    //todo
     // char str_buf[BUFFER_SIZE * 3];
     // USART_getline(str_buf, sizeof(str_buf));
     // if (strcmp(str_buf, SW_STATE_HFOP)) {
@@ -85,7 +83,7 @@ void MAIN_Init() {
     USART_Transmit(' ');
     USART_Transmit_s(__TIME__);
     USART_Transmit('\n');
-    freq_op = STATE_LOW_FREQ_OP;  //STATE_HIGH_FREQ_OP;
+    freq_op = STATE_HIGH_FREQ_OP;  //STATE_HIGH_FREQ_OP;
     traffic_light_state = STATE_NS_GRUEN;
     EVENT_set(EVENT_NS_TIMER_TICK);
 
