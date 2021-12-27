@@ -10,7 +10,7 @@
 | -            | -             | FG rot    |
 | PD2 (INT0)   | 2             | FG taster |
 | PB3 (INT1)   | 3             | NS taster |
-|              | 10            | RTC SS    |
+| <!--         |               | 10        | RTC SS |
 |              | 11            | RTC MOSI  |
 |              | 12            | RTC MISO  |
-|              | 13            | RTC CLK   |
+|              | 13            | RTC CLK   | -->    |

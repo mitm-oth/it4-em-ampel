@@ -1,8 +1,11 @@
 #ifndef __VERKEHRSSYSTEM_CONFIG_H_
 #define __VERKEHRSSYSTEM_CONFIG_H_
 
+#include "../../global_config.h"
 #include "events.h"
 #include "timer.h"
+
+extern volatile freq_op_t freq_op;
 
 //** Zustände der Ampel
 #define STATE_HS_GRUEN (1 << 0)  // Hauptstraße hat grün
@@ -22,19 +25,19 @@
 
 //** Times
 //*  High frequency operation
-#define TIME_HFOP_HS_GREEN_PHASE 5000  //[ms]
-#define TIME_HFOP_NS_GREEN_PHASE 2000  //[ms]
-#define TIME_HFOP_NS_YELLOW 100        //[ms]
-#define TIME_HFOP_NS_YELLOW_RED 100    //[ms]
-#define TIME_HFOP_HS_YELLOW 100        //[ms]
+//todo optimize times
+#define TIME_HFOP_HS_GREEN_PHASE 10000  //[ms]
+#define TIME_HFOP_NS_GREEN_PHASE 10000  //[ms]
+#define TIME_HFOP_NS_YELLOW 100         //[ms]
+#define TIME_HFOP_NS_YELLOW_RED 100     //[ms]
+#define TIME_HFOP_HS_YELLOW 100         //[ms]
 
 #define TIME_HFOP_HS_YELLOW 100          //[ms]
 #define TIME_HFOP_HS_YELLOW_RED 100      //[ms]
 #define TIME_HFOP_NS_YELLOW_TO_GREEN 50  //[ms]
 #define TIME_HFOP_FG_GREEN 50            //[ms]
-//// #define TIME_LOW_FREQ_OP_HS 1          //todo
-//// #define TIME_LOW_FREQ_OP_NS 1          //todo
-//// #define TIME_DEGRADED_OP_HS 1          //todo
-//// #define TIME_DEGRADED_OP_HS 1          //todo
+
+#define TIME_LFOP_BLINK_PAUSE 3000  //[ms]
+#define TIME_LFOP_BLINK_ON 1000     //[ms]
 
 #endif  // __VERKEHRSSYSTEM_CONFIG_H_

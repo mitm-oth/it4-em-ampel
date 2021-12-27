@@ -13,7 +13,7 @@ void TIMER_Init();
  * @brief 
  * 
  * @param t Timer number: 0 - 7 
- * @param delay_us Timer delay in 10^-6 s
+ * @param delay_us Timer delay in 10^-6 s //todo ms
  * @param func     Timer callback on Tick
  */
 void TIMER_Declare(timer_t t, uint32_t delay_us, void (*func)());

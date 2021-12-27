@@ -96,7 +96,7 @@ void LIGHT_Init() {
 
     // Set pins PD2-PD3 as input (as described in pinout.md)
     DDRD &= ~((1 << DDD2) | (1 << DDD3));    // As Inputs
-    PORTB |= (1 << PORTB0) | (1 << PORTB1);  // Pullups
+    PORTD |= (1 << PORTD2) | (1 << PORTD3);  // Pullups
     EICRA |= (1 << ISC01) | (1 << ISC11);    // Interrupt triggered by on falling edge
     EIMSK |= (1 << INT0) | (1 << INT1);      // Enable
 
@@ -168,4 +168,30 @@ void LIGHT_HFOP_set_NS() {
     //* NS yellow -> NS green
     off(NS_Y);
     on(NS_G);
+}
+
+extern void LIGHT_LFOP__pause_timer_callback();
+void LIGHT_LFOP_on_timer_callback() {
+    USART_Transmit_s("Blink\n");
+    if (freq_op == STATE_LOW_FREQ_OP) {
+        on(NS_Y);
+        TIMER_Declare(TIMER_TRAFFIC_LIGHT, (uint32_t)TIME_LFOP_BLINK_ON, LIGHT_LFOP__pause_timer_callback);
+        TIMER_Start(TIMER_TRAFFIC_LIGHT);
+    }
+}
+
+void LIGHT_LFOP__pause_timer_callback() {
+    USART_Transmit_s("Blink\n");
+    if (freq_op == STATE_LOW_FREQ_OP) {
+        off(NS_Y);
+        TIMER_Declare(TIMER_TRAFFIC_LIGHT, (uint32_t)TIME_LFOP_BLINK_PAUSE, LIGHT_LFOP_on_timer_callback);
+        TIMER_Start(TIMER_TRAFFIC_LIGHT);
+    }
+}
+
+void LIGHT_LFOP() {
+    for (int i = 0; i < sizeof(lights) / sizeof(bool); i++) {
+        off(i);
+    }
+    LIGHT_LFOP_on_timer_callback();
 }
