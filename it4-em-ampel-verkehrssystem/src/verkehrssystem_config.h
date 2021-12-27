@@ -6,6 +6,7 @@
 #include "timer.h"
 
 extern volatile freq_op_t freq_op;
+extern volatile error_t error_code;
 
 //** Zustände der Ampel
 #define STATE_HS_GRUEN (1 << 0)  // Hauptstraße hat grün

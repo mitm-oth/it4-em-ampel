@@ -6,6 +6,7 @@
 
 #include "../../global_config.h"
 #include "lights.h"
+#include "spi.h"
 #include "timer.h"
 #include "uart.h"
 #include "verkehrssystem_config.h"
@@ -55,7 +56,7 @@ void high_freq_op() {
 }
 
 void low_freq_op() {
-    LIGHT_LFOP();
+    LIGHT_LFOP();  // Blink is Handled by interrupts
     while (freq_op == STATE_LOW_FREQ_OP)
         _delay_ms(100);
 }
@@ -65,18 +66,10 @@ void remote_freq_op() {
         _delay_ms(100);
 }
 
-//todo spi interface
-void handle_communication() {
-    // char str_buf[BUFFER_SIZE * 3];
-    // USART_getline(str_buf, sizeof(str_buf));
-    // if (strcmp(str_buf, SW_STATE_HFOP)) {
-    // } else if (strcmp(str_buf, SW_STATE_LFOP)) {
-    // }
-}
-
 void MAIN_Init() {
     LIGHT_Init();
     TIMER_Init();
+    SPI_Slave_Init();
     USART_Init(BAUDRATE);
     USART_Transmit_s("\n\n Starting...\nCompile time: ");
     USART_Transmit_s(__DATE__);
@@ -86,20 +79,12 @@ void MAIN_Init() {
     freq_op = STATE_HIGH_FREQ_OP;  //STATE_HIGH_FREQ_OP;
     traffic_light_state = STATE_NS_GRUEN;
     EVENT_set(EVENT_NS_TIMER_TICK);
-
-    // //setup SPI
-    // pinMode(MISO, OUTPUT);
-    // SPCR |= _BV(SPE);
-    // SPCR |= _BV(SPIE);
-    // SPI.attachInterrupt();
-    // SPDR = 0x00;
 }
 
 int main() {
     MAIN_Init();
 
     while (1) {
-        handle_communication();
         switch (freq_op) {
             case STATE_HIGH_FREQ_OP:
                 high_freq_op();
@@ -122,44 +107,3 @@ int main() {
 
     return 0;
 }
-
-// byte msgCommand = 0;
-// byte msgLength = 0;
-// byte msgIndex = 0;
-
-// ISR(SPI_STC_vect) {
-//     if (msgLength == 0)  //new Message
-//         msgCommand = SPDR;
-
-//     SPDR = 0;
-//     switch (msgCommand + (msgIndex << 8)) {
-//         // ---------------------------------------- REQ module type
-//         case 1:
-//             msgLength = 1;
-//             SPDR = 'W';
-//             break;
-
-//         // ---------------------------------------- MSG module LED
-//         case (2 + (0 << 8)):
-//             msgLength = 2;
-//             break;
-//         case (2 + (1 << 8)):
-//             statLED_state = SPDR;
-//             statLED_update = true;
-//             break;
-
-//         // ---------------------------------------- REQ wire connections
-//         case 3:
-//             msgLength = 1;
-//             SPDR = wirestates;
-//             break;
-//     }
-
-//     SPIcounter++;
-//     msgIndex++;
-//     if (msgIndex >= msgLength) {  //end of message
-//         msgCommand = 0;
-//         msgLength = 0;
-//         msgIndex = 0;
-//     }
-// }

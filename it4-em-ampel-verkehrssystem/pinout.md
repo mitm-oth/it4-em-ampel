@@ -9,8 +9,8 @@
 | -            | -             | FG grün   |
 | -            | -             | FG rot    |
 | PD2 (INT0)   | 2             | FG taster |
-| PB3 (INT1)   | 3             | NS taster |
-| <!--         |               | 10        | RTC SS |
-|              | 11            | RTC MOSI  |
-|              | 12            | RTC MISO  |
-|              | 13            | RTC CLK   | -->    |
+| PD3 (INT1)   | 3             | NS taster |
+| PB2          | 10            | SPI SS    |
+| PB3          | 11            | SPI MOSI  |
+| PB4          | 12            | SPI MISO  |
+| PB5          | 13            | SPI CLK   |
