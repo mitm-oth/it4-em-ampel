@@ -24,19 +24,19 @@ void NS_timer_callback() {
 void high_freq_op() {
     switch (traffic_light_state) {
         case STATE_HS_GRUEN:
-            if (EVENT_is_set(EVENT_HS_TIMER_TICK) && EVENT_is_set(EVENT_FG_ARRIVED) || EVENT_is_set(EVENT_NS_ARRIVED))) {  // switch to NS traffic now
-                    USART_Transmit_s("Switching from HS to NS.\n");
-                    traffic_light_state = STATE_NS_GRUEN;
-                    TIMER_Declare(TIMER_TRAFFIC_LIGHT, TIME_HFOP_NS_GREEN_PHASE * 1000, NS_timer_callback);
-                    TIMER_Start(TIMER_TRAFFIC_LIGHT);
-                    LIGHT_HFOP_set_NS();
-                }
+            if (EVENT_is_set(EVENT_HS_TIMER_TICK) && (EVENT_is_set(EVENT_FG_ARRIVED) || EVENT_is_set(EVENT_NS_ARRIVED))) {  // switch to NS traffic now
+                USART_Transmit_s("Switching from HS to NS.\n");
+                traffic_light_state = STATE_NS_GRUEN;
+                TIMER_Declare(TIMER_TRAFFIC_LIGHT, (uint32_t)TIME_HFOP_NS_GREEN_PHASE * 1000, NS_timer_callback);
+                TIMER_Start(TIMER_TRAFFIC_LIGHT);
+                LIGHT_HFOP_set_NS();
+            }
             break;
         case STATE_NS_GRUEN:
             if (EVENT_is_set(EVENT_NS_TIMER_TICK)) {  // switch to HS traffic now
                 USART_Transmit_s("Switching from NS to HS.\n");
                 traffic_light_state = STATE_HS_GRUEN;
-                TIMER_Declare(TIMER_TRAFFIC_LIGHT, TIME_HFOP_HS_GREEN_PHASE * 1000, HS_timer_callback);
+                TIMER_Declare(TIMER_TRAFFIC_LIGHT, (uint32_t)TIME_HFOP_HS_GREEN_PHASE * 1000, HS_timer_callback);
                 TIMER_Start(TIMER_TRAFFIC_LIGHT);
                 EVENT_clear(EVENT_FG_ARRIVED);
                 EVENT_clear(EVENT_NS_ARRIVED);
@@ -47,19 +47,15 @@ void high_freq_op() {
     }
 }
 
-void switch_freq_op(freq_op_t new_freq_op) {
-    //todo only if Hauptstraße frei ansonsten event setzten und behandeln
-    //todo only if not degraded op
-    freq_op = new_freq_op;
-}
+//// void switch_freq_op(freq_op_t new_freq_op) {
+////     //todo only if Hauptstraße frei ansonsten event setzten und behandeln
+////     //todo only if not degraded op
+////     freq_op = new_freq_op;
+//// }
 
-//todo ISR for FG event / NS event
-//todo ISR for communication with leitsystem (set ns_time / hs_time)
-//todo timer for gelb (FG hat kein gelb)
+//todo ISR for communication with leitsystem
 
 void setup() {
-    //todo set ns_time, hs_time
-    //todo init
     LIGHT_Init();
     TIMER_Init();
     USART_Init(BAUDRATE);
@@ -82,10 +78,13 @@ int main() {
                 high_freq_op();
                 break;
             case STATE_LOW_FREQ_OP:
+                //todo
                 break;
             case STATE_REMOTE_FREQ_OP:
+                //todo
                 break;
             case STATE_DEGRADED_OP:
+                //todo
                 break;
 
             default:

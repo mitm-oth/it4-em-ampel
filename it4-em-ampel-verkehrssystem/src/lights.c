@@ -16,11 +16,11 @@ volatile bool lights[8] = {0};
 
 // FG pressd button
 ISR(INT0_vect) {
-    set_event(EVENT_FG_ARRIVED);
+    EVENT_set(EVENT_FG_ARRIVED);
 }
 // Car is on induction plate
 ISR(INT1_vect) {
-    set_event(EVENT_NS_ARRIVED);
+    EVENT_set(EVENT_NS_ARRIVED);
 }
 
 void on(uint8_t light_pos) {
