@@ -1,5 +1,7 @@
 #include "lights.h"
 
+#include <../../include/verkehrssystem_config.h>
+
 #define ON true
 #define OFF false
 

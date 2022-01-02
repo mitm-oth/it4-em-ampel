@@ -1,5 +1,6 @@
 #pragma once
 
+#include <../../include/verkehrssystem_config.h>
 #include <avr/interrupt.h>
 #include <events.h>
 #include <stdbool.h>
@@ -7,11 +8,6 @@
 #include <stdio.h>   // Only for debug()
 #include <stdlib.h>  // Only for debug()
 #include <uart.h>    // Only for debug()
-#ifdef VERKEHRSSYSTEM
-#include <../../include/verkehrssystem_config.h>  //todo find a better way to include this
-#elif defined LEITSYSTEM
-#include <../../include/leitsystem_config.h>  //todo find a better way to include this
-#endif
 
 void LIGHT_Init();
 

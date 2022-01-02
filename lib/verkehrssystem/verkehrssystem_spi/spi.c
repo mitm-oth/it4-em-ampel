@@ -12,7 +12,7 @@ void SPI_Slave_Init() {
     SPDR = 0x00;
 }
 
-//* handled by interrupts
+////* handled by interrupts
 //// char SPI_Slave_Receive() {
 ////     // Wait for reception complete
 ////     while (!(SPSR & (1 << SPIF)))
@@ -22,7 +22,7 @@ void SPI_Slave_Init() {
 //// }
 
 ISR(SPI_STC_vect) {
-    switch (SPI_Slave_Receive()) {
+    switch (SPDR) {
         case C_SW_STATE_HFOP:
             freq_op = STATE_HIGH_FREQ_OP;
             break;
