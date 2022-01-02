@@ -1,9 +1,21 @@
 {
     "cSpell.words": [
+        "CPHA",
+        "DDRB",
+        "DGOP",
         "GRUEN",
         "HFOP",
         "LFOP",
-        "USART"
+        "MOSI",
+        "MSTR",
+        "PORTB",
+        "RMOP",
+        "SPCR",
+        "SPDR",
+        "SPIF",
+        "SPSR",
+        "USART",
+        "vect"
     ],
     "files.associations": {
         "*.json": "jsonc",
@@ -11,6 +23,8 @@
         "verkehrssystem_config.h": "c",
         "timer.h": "c",
         "events.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "leitsystem_config.h": "c",
+        "stdint.h": "c"
     }
 }

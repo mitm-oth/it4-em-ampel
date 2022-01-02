@@ -23,9 +23,9 @@ typedef uint8_t error_t;
 #define ERROR_TIME_ERROR ((error_t)0x81)
 
 //* Communication commands
-#define C_SW_STATE_HFOP 0x00  // Switch state to Hight frequency op
-#define C_SW_STATE_LFOP 0x01  // Switch state to Low frequcy op
-#define C_SW_STATE_RMOP 0x02  // Switch state to Remote frequcy op
-#define C_SW_STATE_DGOP 0x03  // Switch state to Degraded frequcy op
+#define C_SW_STATE_HFOP 0x01  // Switch state to Hight frequency op
+#define C_SW_STATE_LFOP 0x02  // Switch state to Low frequcy op
+#define C_SW_STATE_RMOP 0x03  // Switch state to Remote frequcy op
+#define C_SW_STATE_DGOP 0x04  // Switch state to Degraded frequcy op
 
-#define Q_ERROR_CODE 0x04  // Ask for system error code
+#define Q_ERROR_CODE 0xFE  // Ask for system error code
