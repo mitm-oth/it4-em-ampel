@@ -25,6 +25,9 @@
         "events.h": "c",
         "stdbool.h": "c",
         "leitsystem_config.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "uart.h": "c",
+        "spi.h": "c",
+        "interrupt.h": "c"
     }
 }

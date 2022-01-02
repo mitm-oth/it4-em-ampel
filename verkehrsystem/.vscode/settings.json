@@ -1,0 +1,34 @@
+{
+    "cSpell.words": [
+        "CPHA",
+        "DDRB",
+        "DGOP",
+        "GRUEN",
+        "HFOP",
+        "LFOP",
+        "MOSI",
+        "MSTR",
+        "PORTB",
+        "RMOP",
+        "SPCR",
+        "SPDR",
+        "SPIF",
+        "SPSR",
+        "USART",
+        "vect"
+    ],
+    "files.associations": {
+        "*.json": "jsonc",
+        "global_config.h": "c",
+        "verkehrssystem_config.h": "c",
+        "timer.h": "c",
+        "events.h": "c",
+        "stdbool.h": "c",
+        "leitsystem_config.h": "c",
+        "stdint.h": "c",
+        "uart.h": "c",
+        "spi.h": "c",
+        "interrupt.h": "c",
+        "lights.h": "c"
+    }
+}

@@ -1,15 +1,13 @@
-#ifdef VERKEHRSSYSTEM
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
-#include <global_config.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <timer.h>
 #include <uart.h>
 #include <util/delay.h>
-#include <verkehrssystem/lights.h>
-#include <verkehrssystem/spi.h>
+#include <lights.h>
+#include <spi.h>
 #include <verkehrssystem_config.h>
 
 volatile freq_op_t freq_op;
@@ -108,5 +106,3 @@ int main() {
 
     return 0;
 }
-
-#endif

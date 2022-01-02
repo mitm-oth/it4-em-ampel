@@ -1,7 +1,5 @@
-#ifdef LEITSYSTEM
-
 #include <events.h>
-#include <leitsystem/spi.h>
+#include <spi.h>
 #include <leitsystem_config.h>
 #include <uart.h>
 
@@ -35,5 +33,3 @@ int main() {
         loop();
     return 0;
 }
-
-#endif

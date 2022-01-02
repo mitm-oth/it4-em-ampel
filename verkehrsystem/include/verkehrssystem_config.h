@@ -1,9 +1,8 @@
 #pragma once
 
-#include <events.h>
-#include <timer.h>
+#include "../../global_config.h"
+#include "../../lib/timer/timer.h"
 
-#include "global_config.h"
 
 extern volatile freq_op_t freq_op;
 extern volatile error_t error_code;

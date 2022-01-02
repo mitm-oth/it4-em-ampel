@@ -1,6 +1,6 @@
 #pragma once
 
-#include <../../include/verkehrssystem_config.h>
+#include "../../include/verkehrssystem_config.h"
 #include <events.h>
 #include <stdbool.h>
 #include <stdint.h>
