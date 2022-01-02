@@ -69,7 +69,7 @@ void check_freq_op() {
     }
 }
 
-void check_error_code(){
+void SPI_check_error_code(){
     SPI_select_SS();
     SPI_MasterTransmit(Q_ERROR_CODE);
     error_t error = SPI_MasterTransmit(0x00);
@@ -94,6 +94,7 @@ void setup() {
 
 void loop() {
     check_freq_op();
+    SPI_check_error_code();
     _delay_ms(1000);
 }
 
