@@ -11,7 +11,7 @@ void SPI_MasterInit(void) {
     SPCR |= (1 << CPOL) | (1 << CPHA);
 }
 
-char SPI_MasterTransmit(char cData) {
+spi_command_t SPI_MasterTransmit(spi_command_t cData) {
     // Start transmission
     SPDR = cData;
     // Wait for transmission complete

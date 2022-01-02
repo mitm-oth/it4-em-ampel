@@ -8,6 +8,7 @@ typedef uint8_t freq_op_t;
 #define STATE_LOW_FREQ_OP ((freq_op_t)0x01)
 #define STATE_REMOTE_FREQ_OP ((freq_op_t)0x02)  // Lights switched off
 #define STATE_DEGRADED_OP ((freq_op_t)0x03)
+#define STATE_UNKNOWN ((freq_op_t)0xFF)
 
 //* Error codes
 typedef uint8_t error_t;
@@ -23,9 +24,55 @@ typedef uint8_t error_t;
 #define ERROR_TIME_ERROR ((error_t)0x81)
 
 //* Communication commands
-#define C_SW_STATE_HFOP 0x01  // Switch state to Hight frequency op
-#define C_SW_STATE_LFOP 0x02  // Switch state to Low frequcy op
-#define C_SW_STATE_RMOP 0x03  // Switch state to Remote frequcy op
-#define C_SW_STATE_DGOP 0x04  // Switch state to Degraded frequcy op
+typedef uint8_t spi_command_t;
+#define C_SW_STATE_HFOP (spi_command_t)0x01  // Switch state to Hight frequency op
+#define C_SW_STATE_LFOP (spi_command_t)0x02  // Switch state to Low frequcy op
+#define C_SW_STATE_RMOP (spi_command_t)0x03  // Switch state to Remote frequcy op
+#define C_SW_STATE_DGOP (spi_command_t)0x04  // Switch state to Degraded frequcy op
 
 #define Q_ERROR_CODE 0xFE  // Ask for system error code
+
+inline freq_op_t spi_command_to_freq_op(spi_command_t command){
+    switch (command) {
+        case C_SW_STATE_HFOP:
+            return STATE_HIGH_FREQ_OP;
+        case C_SW_STATE_LFOP:
+            return STATE_LOW_FREQ_OP;
+        case C_SW_STATE_RMOP:
+            return STATE_REMOTE_FREQ_OP;
+        case C_SW_STATE_DGOP:
+            return STATE_DEGRADED_OP;
+        default:
+            return STATE_DEGRADED_OP;
+    }
+}
+
+inline spi_command_t freq_op_to_spi_command(freq_op_t freq_op){
+    switch (freq_op) {
+        case STATE_HIGH_FREQ_OP:
+            return C_SW_STATE_HFOP;
+        case STATE_LOW_FREQ_OP:
+            return C_SW_STATE_LFOP;
+        case STATE_REMOTE_FREQ_OP:
+            return C_SW_STATE_RMOP;
+        case STATE_DEGRADED_OP:
+            return C_SW_STATE_DGOP;
+        default:
+            return C_SW_STATE_DGOP;
+    }
+}
+
+inline char* freq_op_to_string(freq_op_t freq_op){
+    switch (freq_op) {
+        case STATE_HIGH_FREQ_OP:
+            return "STATE_HIGH_FREQ_OP";
+        case STATE_LOW_FREQ_OP:
+            return "STATE_LOW_FREQ_OP";
+        case STATE_REMOTE_FREQ_OP:
+            return "STATE_REMOTE_FREQ_OP";
+        case STATE_DEGRADED_OP:
+            return "STATE_DEGRADED_OP";
+        default:
+            return "STATE_NOT_DEFINED";
+    }
+}

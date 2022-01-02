@@ -5,6 +5,7 @@
 #include <avr/io.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <uart.h>
 
 #define DD_MOSI DDB3
 #define DD_MISO DDB4

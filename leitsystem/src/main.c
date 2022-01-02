@@ -1,7 +1,85 @@
 #include <events.h>
-#include <spi.h>
 #include <leitsystem_config.h>
+#include <spi.h>
 #include <uart.h>
+
+void set_freq_op(freq_op_t freq) {
+    SPI_select_SS();
+    SPI_MasterTransmit(freq_op_to_spi_command(freq));
+    SPI_deselect_SS();
+}
+
+void set_freq_op_if_changed(freq_op_t target) {
+    static freq_op_t now = STATE_UNKNOWN;
+    if (now != target) {
+        // print changed state to USART
+        USART_Transmit_s("Changing state from ");
+        USART_Transmit_s(freq_op_to_string(now));
+        USART_Transmit_s(" to ");
+        USART_Transmit_s(freq_op_to_string(target));
+        USART_Transmit('\n');
+        now = target;
+        set_freq_op(now);
+    }
+}
+
+//todo read from RTC
+uint8_t hours = 0;
+day_t day = DAY_UNKNOWN;
+
+void check_freq_op() {
+    switch (day) {
+        case DAY_MONDAY:
+        case DAY_TUESDAY:
+        case DAY_WEDNESDAY:
+        case DAY_THURSDAY:
+        case DAY_FRIDAY:
+            if (hours < 5)
+                set_freq_op_if_changed(STATE_REMOTE_FREQ_OP);  // 0 bis 5 Uhr
+            else if (hours < 20)
+                set_freq_op_if_changed(STATE_HIGH_FREQ_OP);  // 5 bis 20 Uhr
+            else
+                set_freq_op_if_changed(STATE_LOW_FREQ_OP);  // 20 bis 24 Uhr
+            break;
+
+        case DAY_SATURDAY:
+            if (hours < 5)
+                set_freq_op_if_changed(STATE_REMOTE_FREQ_OP);  // 0 bis 5 Uhr
+            else if (hours < 9)
+                set_freq_op_if_changed(STATE_LOW_FREQ_OP);  // 5 bis 9 Uhr
+            else if (hours < 22)
+                set_freq_op_if_changed(STATE_HIGH_FREQ_OP);  // 9 bis 22 Uhr
+            else
+                set_freq_op_if_changed(STATE_LOW_FREQ_OP);  // 22 bis 24 Uhr
+            break;
+
+        case DAY_SUNDAY:
+            if (hours < 9)
+                set_freq_op_if_changed(STATE_REMOTE_FREQ_OP);  // 0 bis 9 Uhr
+            else if (hours < 13)
+                set_freq_op_if_changed(STATE_LOW_FREQ_OP);  // 9 bis 13 Uhr
+            else if (hours < 22)
+                set_freq_op_if_changed(STATE_HIGH_FREQ_OP);  // 13 bis 22 Uhr
+            else
+                set_freq_op_if_changed(STATE_LOW_FREQ_OP);  // 22 bis 24 Uhr
+            break;
+        default:
+            set_freq_op_if_changed(STATE_DEGRADED_OP);
+            break;
+    }
+}
+
+void check_error_code(){
+    SPI_select_SS();
+    SPI_MasterTransmit(Q_ERROR_CODE);
+    error_t error = SPI_MasterTransmit(0x00);
+    SPI_deselect_SS();
+    if (error != 0x00) {
+        USART_Transmit_s("Error code: ");
+        USART_Transmit_u(error);
+        USART_Transmit('\n');
+    }
+}
 
 void setup() {
     USART_Init(BAUDRATE);
@@ -15,16 +93,8 @@ void setup() {
 }
 
 void loop() {
-    _delay_ms(5000);
-    SPI_select_SS();
-    SPI_MasterTransmit(0x01);
-    USART_Transmit_s("0x01\n");
-    SPI_deselect_SS();
-    _delay_ms(5000);
-    SPI_select_SS();
-    SPI_MasterTransmit(0x02);
-    USART_Transmit_s("0x02\n");
-    SPI_deselect_SS();
+    check_freq_op();
+    _delay_ms(1000);
 }
 
 int main() {

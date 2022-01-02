@@ -22,6 +22,7 @@ void SPI_Slave_Init() {
 //// }
 
 ISR(SPI_STC_vect) {
+    USART_Transmit_s("SPI\n");
     switch (SPDR) {
         case C_SW_STATE_HFOP:
             freq_op = STATE_HIGH_FREQ_OP;

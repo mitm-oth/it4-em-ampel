@@ -1,13 +1,13 @@
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
+#include <lights.h>
+#include <spi.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <timer.h>
 #include <uart.h>
 #include <util/delay.h>
-#include <lights.h>
-#include <spi.h>
 #include <verkehrssystem_config.h>
 
 volatile freq_op_t freq_op;
