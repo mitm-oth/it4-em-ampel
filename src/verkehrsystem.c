@@ -5,8 +5,8 @@
 #include <global_config.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include <timer.h>
-#include <uart.h>
+#include <timer/timer.h>
+#include <uart/uart.h>
 #include <util/delay.h>
 #include <verkehrssystem_config.h>
 #include <verkehrssystem_lights/lights.h>
