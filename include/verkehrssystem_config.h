@@ -1,7 +1,6 @@
-#ifndef __VERKEHRSSYSTEM_CONFIG_H_
-#define __VERKEHRSSYSTEM_CONFIG_H_
+#pragma once
 
-#include "../../global_config.h"
+#include "global_config.h"
 #include "events.h"
 #include "timer.h"
 
@@ -40,5 +39,3 @@ extern volatile error_t error_code;
 
 #define TIME_LFOP_BLINK_PAUSE 3000  //[ms]
 #define TIME_LFOP_BLINK_ON 1000     //[ms]
-
-#endif  // __VERKEHRSSYSTEM_CONFIG_H_

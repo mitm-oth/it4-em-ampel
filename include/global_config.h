@@ -1,5 +1,4 @@
-#ifndef __GLOBAL_CONFIG_H_
-#define __GLOBAL_CONFIG_H_
+#pragma once
 
 #include <stdint.h>
 
@@ -30,5 +29,3 @@ typedef uint8_t error_t;
 #define C_SW_STATE_DGOP 0x03  // Switch state to Degraded frequcy op
 
 #define Q_ERROR_CODE 0x04  // Ask for system error code
-
-#endif  // __GLOBAL_CONFIG_H_

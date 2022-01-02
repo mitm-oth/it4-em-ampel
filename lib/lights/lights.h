@@ -1,16 +1,17 @@
-#ifndef __LIGHTS_H_
-#define __LIGHTS_H_
+#pragma once
 
 #include <avr/interrupt.h>
+#include <events.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>   // Only for debug()
 #include <stdlib.h>  // Only for debug()
-
-#include "../../global_config.h"
-#include "events.h"
-#include "uart.h"  // Only for debug()
-#include "verkehrssystem_config.h"
+#include <uart.h>    // Only for debug()
+#ifdef VERKEHRSSYSTEM
+#include <../../include/verkehrssystem_config.h>  //todo find a better way to include this
+#elif defined LEITSYSTEM
+#include <../../include/leitsystem_config.h>  //todo find a better way to include this
+#endif
 
 void LIGHT_Init();
 
@@ -22,5 +23,3 @@ void LIGHT_HFOP_set_NS();
 
 void LIGHT_LFOP();
 void LIGHT_debug();
-
-#endif  // __LIGHTS_H_

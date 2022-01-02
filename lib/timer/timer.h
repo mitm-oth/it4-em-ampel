@@ -1,5 +1,4 @@
-#ifndef __TIMER_H_
-#define __TIMER_H_
+#pragma once
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
@@ -21,5 +20,3 @@ void TIMER_Declare(timer_t t, uint32_t delay_us, void (*func)());
 void TIMER_Start(timer_t t);
 
 void TIMER_Cancel(timer_t t);
-
-#endif  // __TIMER_H_

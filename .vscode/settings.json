@@ -1,0 +1,12 @@
+{
+    "cSpell.words": [
+        "GRUEN",
+        "HFOP",
+        "LFOP",
+        "USART"
+    ],
+    "files.associations": {
+        "*.json": "jsonc",
+        "global_config.h": "c"
+    }
+}

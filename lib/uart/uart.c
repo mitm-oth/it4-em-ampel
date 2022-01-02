@@ -16,7 +16,7 @@ void push(uint8_t data) {
     sei();
 }
 
-uint8_t USART_pop() {
+uint8_t pop() {
     cli();
     uint8_t last = buffer[tail];
     tail = (tail + 1) % BUFFER_SIZE;
@@ -24,30 +24,19 @@ uint8_t USART_pop() {
     return last;
 }
 
-bool USART_buffer_empty() {
+bool buffer_full() {
+    bool full = (((head + 1) % BUFFER_SIZE) == tail);
+    return full;
+}
+
+bool buffer_empty() {
     cli();
     bool empty = (head == tail);
     sei();
     return empty;
 }
 
-void USART_getline(char buffer[], size_t size) {
-    int i = 0;
-    while (i < size && !USART_buffer_empty()) {
-        buffer[i] = USART_pop();
-        if (buffer[i] == '\0' || buffer[i] == '\n' || buffer[i] == XON || buffer[i] == XOFF)
-            break;
-        i++;
-    }
-    buffer[i] = '\0';
-}
-
-bool USART_buffer_full() {
-    bool full = (((head + 1) % BUFFER_SIZE) == tail);
-    return full;
-}
-
-uint8_t USART_buffer_fill_state() {
+uint8_t buffer_fill_state() {
     return (head - tail) % BUFFER_SIZE;
 }
 
@@ -58,7 +47,7 @@ ISR(USART_RX_vect) {
         me_xoff_flag = false;
     } else if (data == XOFF) {
         me_xoff_flag = true;
-    } else if (!USART_buffer_full()) {
+    } else if (!buffer_full()) {
         push(data);
     }
 }
@@ -104,10 +93,10 @@ void USART_Transmit_s_f(const char *data_in_flash) {
 }
 
 void USART_mainloop() {
-    if (you_xoff_flag && USART_buffer_fill_state() <= HYSTERESE_BUFFER_LOW) {
+    if (you_xoff_flag && buffer_fill_state() <= HYSTERESE_BUFFER_LOW) {
         USART_Transmit(XON);
         you_xoff_flag = false;
-    } else if (!you_xoff_flag && USART_buffer_fill_state() > HYSTERESE_BUFFER_HIGH) {
+    } else if (!you_xoff_flag && buffer_fill_state() > HYSTERESE_BUFFER_HIGH) {
         USART_Transmit(XOFF);
         you_xoff_flag = true;
     }

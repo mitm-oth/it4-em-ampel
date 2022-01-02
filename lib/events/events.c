@@ -3,15 +3,11 @@
 volatile event_t events = 0x0000;
 
 void EVENT_set(event_t event) {
-    cli();  //todo save status reg
     events |= event;
-    sei();  //todo write back
 }
 
 void EVENT_clear(event_t event) {
-    cli();  //todo save status reg
     events &= ~(event);
-    sei();  //todo write back
 }
 
 bool EVENT_is_set(event_t event) {
