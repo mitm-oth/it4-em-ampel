@@ -1,12 +1,12 @@
 #pragma once
 
 #include <../../include/verkehrssystem_config.h>
-#include <events/events.h>
+#include <events.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>      // Only for debug()
 #include <stdlib.h>     // Only for debug()
-#include <uart/uart.h>  // Only for debug()
+#include <uart.h>  // Only for debug()
 
 void LIGHT_Init();
 

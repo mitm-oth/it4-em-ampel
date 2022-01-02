@@ -7,6 +7,10 @@
     ],
     "files.associations": {
         "*.json": "jsonc",
-        "global_config.h": "c"
+        "global_config.h": "c",
+        "verkehrssystem_config.h": "c",
+        "timer.h": "c",
+        "events.h": "c",
+        "stdbool.h": "c"
     }
 }

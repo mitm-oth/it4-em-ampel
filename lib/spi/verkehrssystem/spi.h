@@ -1,3 +1,5 @@
+#pragma once
+
 #include <../../include/verkehrssystem_config.h>
 #include <avr/interrupt.h>
 #include <avr/io.h>
