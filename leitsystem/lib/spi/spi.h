@@ -2,10 +2,9 @@
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
+#include <leitsystem_config.h>
 #include <stdbool.h>
 #include <stdint.h>
-
-#include "../../include/leitsystem_config.h"
 
 #define DD_MOSI DDB3
 #define DD_MISO DDB4

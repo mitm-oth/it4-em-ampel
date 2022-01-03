@@ -67,7 +67,7 @@ inline spi_command_t freq_op_to_spi_command(freq_op_t freq_op) {
 }
 
 //todo: bad practice maybe: inline is only optional; leads to linking errors if same function is in 2 objectfiles included
-inline char* freq_op_to_string(freq_op_t freq_op) {
+inline const char* freq_op_to_string(freq_op_t freq_op) {
     switch (freq_op) {
         case STATE_HIGH_FREQ_OP:
             return "STATE_HIGH_FREQ_OP";
@@ -79,5 +79,32 @@ inline char* freq_op_to_string(freq_op_t freq_op) {
             return "STATE_DEGRADED_OP";
         default:
             return "STATE_NOT_DEFINED";
+    }
+}
+
+inline const char* error_to_string(error_t error) {
+    switch (error) {
+        case ERROR_NO_ERROR:
+            return "ERROR_NO_ERROR";
+        case ERROR_RED_LIGHT_MR:
+            return "ERROR_RED_LIGHT_MR";
+        case ERROR_RED_LIGHT_SR:
+            return "ERROR_RED_LIGHT_SR";
+        case ERROR_RED_LIGHT_P:
+            return "ERROR_RED_LIGHT_P";
+        case ERROR_YELLOW_LIGHT_SR:
+            return "ERROR_YELLOW_LIGHT_SR";
+        case ERROR_FLASH_ERROR:
+            return "ERROR_FLASH_ERROR";
+        case ERROR_SRAM_ERROR:
+            return "ERROR_SRAM_ERROR";
+        case ERROR_STACK_ERROR:
+            return "ERROR_STACK_ERROR";
+        case ERROR_SW_ERROR:
+            return "ERROR_SW_ERROR";
+        case ERROR_TIME_ERROR:
+            return "ERROR_TIME_ERROR";
+        default:
+            return "ERROR_UNKNOWN";
     }
 }
