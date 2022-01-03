@@ -23,25 +23,8 @@ void SPI_Slave_Init() {
 
 ISR(SPI_STC_vect) {
     USART_Transmit_s("SPI\n");
-    //todo @ptrLx use spi_command_to_freq_op()
-    switch (SPDR) {
-        case C_SW_STATE_HFOP:
-            freq_op = STATE_HIGH_FREQ_OP;
-            break;
-        case C_SW_STATE_LFOP:
-            freq_op = STATE_LOW_FREQ_OP;
-            break;
-        case C_SW_STATE_DGOP:
-            freq_op = STATE_DEGRADED_OP;
-            break;
-        case C_SW_STATE_RMOP:
-            freq_op = STATE_REMOTE_FREQ_OP;
-            break;
-        case Q_ERROR_CODE:
-            SPDR = error_code;
-            break;
-
-        default:
-            break;
-    }
+    if (SPDR == Q_ERROR_CODE)
+        SPDR = error_code;
+    else
+        spi_command_to_freq_op(SPDR);
 }
