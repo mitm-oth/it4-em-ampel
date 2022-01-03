@@ -64,7 +64,7 @@ void check_freq_op() {
                 set_freq_op_if_changed(STATE_LOW_FREQ_OP);  // 22 bis 24 Uhr
             break;
         default:
-            set_freq_op_if_changed(STATE_DEGRADED_OP);
+            set_freq_op_if_changed(STATE_REMOTE_FREQ_OP);
             break;
     }
 }
@@ -77,7 +77,9 @@ void SPI_check_error_code() {
     if (error != ERROR_NO_ERROR) {
         USART_Transmit_s("Error code: ");
         USART_Transmit_s(error_to_string(error));
-        USART_Transmit('\n');
+        USART_Transmit_s(" (");
+        USART_Transmit_int64(0x0);
+        USART_Transmit_s(")\n");
     }
 }
 
@@ -97,16 +99,6 @@ void setup() {
     USART_Transmit_s(__TIME__);
     USART_Transmit_s("\nLEITSYSTEM v0.1\n\n");
     USART_Transmit_int64(0x0);
-    USART_Transmit('\n');
-    USART_Transmit_int64(0x8);
-    USART_Transmit('\n');
-    USART_Transmit_int64(0xC);
-    USART_Transmit('\n');
-    USART_Transmit_int64(0xE);
-    USART_Transmit('\n');
-    USART_Transmit_int64(0xF);
-    USART_Transmit('\n');
-
 
     SPI_MasterInit();
 }

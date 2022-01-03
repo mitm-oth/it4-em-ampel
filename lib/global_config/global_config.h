@@ -12,7 +12,7 @@ typedef uint8_t freq_op_t;
 
 //* Error codes
 typedef uint8_t error_t;
-#define ERROR_NO_ERROR ((error_t)0x00)
+#define ERROR_NO_ERROR ((error_t)0x01)
 #define ERROR_RED_LIGHT_MR ((error_t)0x10)
 #define ERROR_RED_LIGHT_SR ((error_t)0x11)
 #define ERROR_RED_LIGHT_P ((error_t)0x12)
