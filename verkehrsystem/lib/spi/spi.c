@@ -22,9 +22,9 @@ void SPI_Slave_Init() {
 //// }
 
 ISR(SPI_STC_vect) {
-    USART_Transmit_s("SPI\n");
-    if (SPDR == Q_ERROR_CODE)
+    uint8_t data = SPDR;
+    if (data == Q_ERROR_CODE) {
         SPDR = error_code;
-    else
+    } else
         spi_command_to_freq_op(SPDR);
 }
