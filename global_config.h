@@ -30,9 +30,16 @@ typedef uint8_t spi_command_t;
 #define C_SW_STATE_RMOP (spi_command_t)0x03  // Switch state to Remote frequcy op
 #define C_SW_STATE_DGOP (spi_command_t)0x04  // Switch state to Degraded frequcy op
 
+<<<<<<< HEAD
 #define Q_ERROR_CODE (spi_command_t)0xFE  // Ask for system error code
 
 //bad practice maybe: inline is only optional; leads to linking errors if same function is in 2 objectfiles included
+=======
+#define Q_SYSTEM_ID (spi_command_t)0xFD   // Query system id
+#define Q_ERROR_CODE (spi_command_t)0xFE  // Ask for system error code
+
+//* Type conversions
+>>>>>>> ccbed5f824ea6e6dfd841cc365cb08203eb07875
 inline freq_op_t spi_command_to_freq_op(spi_command_t command) {
     switch (command) {
         case C_SW_STATE_HFOP:
@@ -44,11 +51,14 @@ inline freq_op_t spi_command_to_freq_op(spi_command_t command) {
         case C_SW_STATE_DGOP:
             return STATE_DEGRADED_OP;
         default:
-            return STATE_DEGRADED_OP;
+            return STATE_REMOTE_FREQ_OP;
     }
 }
 
+<<<<<<< HEAD
 //bad practice maybe: inline is only optional; leads to linking errors if same function is in 2 objectfiles included
+=======
+>>>>>>> ccbed5f824ea6e6dfd841cc365cb08203eb07875
 inline spi_command_t freq_op_to_spi_command(freq_op_t freq_op) {
     switch (freq_op) {
         case STATE_HIGH_FREQ_OP:
@@ -64,7 +74,10 @@ inline spi_command_t freq_op_to_spi_command(freq_op_t freq_op) {
     }
 }
 
+<<<<<<< HEAD
 //bad practice maybe: inline is only optional; leads to linking errors if same function is in 2 objectfiles included
+=======
+>>>>>>> ccbed5f824ea6e6dfd841cc365cb08203eb07875
 inline char* freq_op_to_string(freq_op_t freq_op) {
     switch (freq_op) {
         case STATE_HIGH_FREQ_OP:

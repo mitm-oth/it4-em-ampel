@@ -81,6 +81,14 @@ void SPI_check_error_code() {
     }
 }
 
+uint8_t SPI_check_system_id() {
+    SPI_select_SS();
+    SPI_MasterTransmit(Q_SYSTEM_ID);
+    uint8_t system_id = SPI_MasterTransmit(0x00);
+    SPI_deselect_SS();
+    return system_id;
+}
+
 void setup() {
     USART_Init(BAUDRATE);
     USART_Transmit_s("\n\nCompile time: ");
