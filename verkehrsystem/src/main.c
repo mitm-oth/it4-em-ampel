@@ -74,7 +74,7 @@ void MAIN_Init() {
     USART_Transmit_s(__DATE__);
     USART_Transmit(' ');
     USART_Transmit_s(__TIME__);
-    USART_Transmit('\n');
+    USART_Transmit_s("\nVERKEHRSSYSTEM v0.1\n\n");
     freq_op = STATE_HIGH_FREQ_OP;  //STATE_HIGH_FREQ_OP;
     traffic_light_state = STATE_NS_GRUEN;
     EVENT_set(EVENT_NS_TIMER_TICK);

@@ -32,6 +32,7 @@ typedef uint8_t spi_command_t;
 
 #define Q_ERROR_CODE (spi_command_t)0xFE  // Ask for system error code
 
+//bad practice maybe: inline is only optional; leads to linking errors if same function is in 2 objectfiles included
 inline freq_op_t spi_command_to_freq_op(spi_command_t command) {
     switch (command) {
         case C_SW_STATE_HFOP:
@@ -47,6 +48,7 @@ inline freq_op_t spi_command_to_freq_op(spi_command_t command) {
     }
 }
 
+//bad practice maybe: inline is only optional; leads to linking errors if same function is in 2 objectfiles included
 inline spi_command_t freq_op_to_spi_command(freq_op_t freq_op) {
     switch (freq_op) {
         case STATE_HIGH_FREQ_OP:
@@ -62,6 +64,7 @@ inline spi_command_t freq_op_to_spi_command(freq_op_t freq_op) {
     }
 }
 
+//bad practice maybe: inline is only optional; leads to linking errors if same function is in 2 objectfiles included
 inline char* freq_op_to_string(freq_op_t freq_op) {
     switch (freq_op) {
         case STATE_HIGH_FREQ_OP:
