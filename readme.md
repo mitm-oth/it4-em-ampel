@@ -4,10 +4,9 @@ Umsetzungen der Projektanforderungen für ein Ampelsystem auf dem Atmega328p ges
 
 ## Projektstruktur
 * Dieses Repo enthält drei Projekte:
-    * Verkehrssystem
-    * Leitsystem
+    * verkehrssystem
+    * leitsystem
     * pc-interface
-* Es kann zwischen dem pio-envs "Verkehrssystem" und "Leitsystem" ausgewählt werden.
 
 ## Verkehrssystem
 ### Pinout
