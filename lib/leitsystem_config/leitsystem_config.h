@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../global_config.h"
+#include <global_config.h>
 
 //* system pins for SPI
 

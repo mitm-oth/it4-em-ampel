@@ -76,7 +76,7 @@ void SPI_check_error_code() {
     SPI_deselect_SS();
     if (error != ERROR_NO_ERROR) {
         USART_Transmit_s("Error code: ");
-        USART_Transmit_u(error);
+        USART_Transmit_s(error_to_string(error));
         USART_Transmit('\n');
     }
 }
@@ -96,6 +96,17 @@ void setup() {
     USART_Transmit(' ');
     USART_Transmit_s(__TIME__);
     USART_Transmit_s("\nLEITSYSTEM v0.1\n\n");
+    USART_Transmit_int64(0x0);
+    USART_Transmit('\n');
+    USART_Transmit_int64(0x8);
+    USART_Transmit('\n');
+    USART_Transmit_int64(0xC);
+    USART_Transmit('\n');
+    USART_Transmit_int64(0xE);
+    USART_Transmit('\n');
+    USART_Transmit_int64(0xF);
+    USART_Transmit('\n');
+
 
     SPI_MasterInit();
 }

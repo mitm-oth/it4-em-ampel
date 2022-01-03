@@ -81,6 +81,12 @@ void USART_Transmit_s(const char *data) {
         USART_Transmit(data[f]);
 }
 
+void USART_Transmit_int64(int64_t data) {
+    char buffer[11];
+    sprintf(buffer, "%d", data);
+    USART_Transmit_s(buffer);
+}
+
 void USART_Transmit_s_f(const char *data_in_flash) {
     int f = 0;
     char data;

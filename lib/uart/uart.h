@@ -5,6 +5,8 @@
 #include <avr/pgmspace.h>
 #include <stdbool.h>
 #include <util/delay.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define BAUDRATE 9600
 
@@ -15,6 +17,7 @@
 void USART_Init(uint32_t baud_rate);
 void USART_Transmit(char data);
 void USART_Transmit_s(const char *data);
+void USART_Transmit_int64(int64_t data);
 void USART_Transmit_s_f(const char *data);
 void USART_mainloop();
 
