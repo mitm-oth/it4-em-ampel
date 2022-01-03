@@ -69,7 +69,7 @@ void check_freq_op() {
     }
 }
 
-void SPI_check_error_code(){
+void SPI_check_error_code() {
     SPI_select_SS();
     SPI_MasterTransmit(Q_ERROR_CODE);
     error_t error = SPI_MasterTransmit(0x00);
@@ -79,6 +79,14 @@ void SPI_check_error_code(){
         USART_Transmit_u(error);
         USART_Transmit('\n');
     }
+}
+
+uint8_t SPI_check_system_id() {
+    SPI_select_SS();
+    SPI_MasterTransmit(Q_SYSTEM_ID);
+    uint8_t system_id = SPI_MasterTransmit(0x00);
+    SPI_deselect_SS();
+    return system_id;
 }
 
 void setup() {

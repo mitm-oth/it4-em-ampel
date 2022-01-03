@@ -2,6 +2,11 @@
 
 #include "../../global_config.h"
 
+//* system pins for SPI
+
+
+
+//* system states
 #define SYSTEM_OK 0x00
 #define SYSTEM_NOT_AVAILABLE 0x01
 #define SYSTEM_NOT_OK 0x02
