@@ -30,9 +30,9 @@ typedef uint8_t spi_command_t;
 #define C_SW_STATE_RMOP (spi_command_t)0x03  // Switch state to Remote frequcy op
 #define C_SW_STATE_DGOP (spi_command_t)0x04  // Switch state to Degraded frequcy op
 
-#define Q_ERROR_CODE 0xFE  // Ask for system error code
+#define Q_ERROR_CODE (spi_command_t)0xFE  // Ask for system error code
 
-inline freq_op_t spi_command_to_freq_op(spi_command_t command){
+inline freq_op_t spi_command_to_freq_op(spi_command_t command) {
     switch (command) {
         case C_SW_STATE_HFOP:
             return STATE_HIGH_FREQ_OP;
@@ -47,7 +47,7 @@ inline freq_op_t spi_command_to_freq_op(spi_command_t command){
     }
 }
 
-inline spi_command_t freq_op_to_spi_command(freq_op_t freq_op){
+inline spi_command_t freq_op_to_spi_command(freq_op_t freq_op) {
     switch (freq_op) {
         case STATE_HIGH_FREQ_OP:
             return C_SW_STATE_HFOP;
@@ -62,7 +62,7 @@ inline spi_command_t freq_op_to_spi_command(freq_op_t freq_op){
     }
 }
 
-inline char* freq_op_to_string(freq_op_t freq_op){
+inline char* freq_op_to_string(freq_op_t freq_op) {
     switch (freq_op) {
         case STATE_HIGH_FREQ_OP:
             return "STATE_HIGH_FREQ_OP";

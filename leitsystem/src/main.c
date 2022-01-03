@@ -69,12 +69,12 @@ void check_freq_op() {
     }
 }
 
-void SPI_check_error_code(){
+void SPI_check_error_code() {
     SPI_select_SS();
     SPI_MasterTransmit(Q_ERROR_CODE);
     error_t error = SPI_MasterTransmit(0x00);
     SPI_deselect_SS();
-    if (error != 0x00) {
+    if (error != ERROR_NO_ERROR) {
         USART_Transmit_s("Error code: ");
         USART_Transmit_u(error);
         USART_Transmit('\n');
