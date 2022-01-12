@@ -27,14 +27,12 @@ extern volatile error_t error_code;
 //todo optimize times
 #define TIME_HFOP_HS_GREEN_PHASE 7000  //[ms] todo 60s
 #define TIME_HFOP_NS_GREEN_PHASE 7000  //[ms] todo 30s
-#define TIME_HFOP_NS_YELLOW 150        //[ms]
-#define TIME_HFOP_NS_YELLOW_RED 200    //[ms]
-#define TIME_HFOP_HS_YELLOW 150        //[ms]
 
-#define TIME_HFOP_HS_YELLOW 150           //[ms]
-#define TIME_HFOP_HS_YELLOW_RED 200       //[ms]
-#define TIME_HFOP_NS_YELLOW_TO_GREEN 100  //[ms]
-#define TIME_HFOP_FG_GREEN 100            //[ms]
+#define TIME_HFOP_HS_NSY 150   //[ms]
+#define TIME_HFOP_HS_HSYR 200  //[ms]
+
+#define TIME_HFOP_NS_HSY 150   //[ms]
+#define TIME_HFOP_NS_NSYR 200  //[ms]
 
 #define TIME_LFOP_BLINK_PAUSE 3000  //[ms]
 #define TIME_LFOP_BLINK_ON 1000     //[ms]

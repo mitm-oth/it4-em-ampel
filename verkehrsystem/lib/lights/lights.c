@@ -116,27 +116,24 @@ void LIGHT_debug() {
 
 void LIGHT_HFOP_set_HS() {
     //* NS green phase -> FG red, NS yellow
+    on(HS_R);
     off(FG_G);
     on(FG_R);
     on(NS_Y);
     off(NS_G);
     LIGHT_debug();
-    _delay_ms(TIME_HFOP_NS_YELLOW);
+    _delay_ms(TIME_HFOP_HS_NSY);
 
-    //* NS yellow -> NS yellow and red
-    on(NS_R);
-    LIGHT_debug();
-    _delay_ms(TIME_HFOP_NS_YELLOW_RED);
-
-    //* NS yellow and red -> NS red, HS yellow
+    //* NS yellow -> NS red, HS yellow and red
     off(NS_Y);
-    off(HS_R);
+    on(NS_R);
     on(HS_Y);
     LIGHT_debug();
-    _delay_ms(TIME_HFOP_HS_YELLOW);
+    _delay_ms(TIME_HFOP_HS_HSYR);
 
-    //* HS yellow -> HS green
+    //* HS yellow and red -> HS green
     off(HS_Y);
+    off(HS_R);
     on(HS_G);
     LIGHT_debug();
 }
@@ -145,29 +142,23 @@ void LIGHT_HFOP_set_NS() {
     //* HS green phase -> HS yellow
     off(HS_G);
     on(HS_Y);
+    on(NS_R);
     LIGHT_debug();
-    _delay_ms(TIME_HFOP_HS_YELLOW);
+    _delay_ms(TIME_HFOP_NS_HSY);
 
-    //* HS yellow -> HS yellow and red
-    on(HS_R);
-    LIGHT_debug();
-    _delay_ms(TIME_HFOP_HS_YELLOW_RED);
-
-    //* HS yellow and red -> HS red, NS yellow
+    //* HS yellow -> HS red, NS yellow and red, FG green
     off(HS_Y);
-    off(NS_R);
+    on(HS_R);
     on(NS_Y);
-    LIGHT_debug();
-    _delay_ms(TIME_HFOP_NS_YELLOW_TO_GREEN);
-
-    //* NS yellow -> FG green
     on(FG_G);
     LIGHT_debug();
-    _delay_ms(TIME_HFOP_FG_GREEN);
+    _delay_ms(TIME_HFOP_NS_NSYR);
 
-    //* NS yellow -> NS green
+    //* NS yellow and red -> NS green
     off(NS_Y);
+    off(NS_R);
     on(NS_G);
+    LIGHT_debug();
 }
 
 extern void LIGHT_LFOP_pause_timer_callback();
