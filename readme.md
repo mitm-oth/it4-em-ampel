@@ -105,7 +105,7 @@ Umsetzungen der Projektanforderungen für ein Ampelsystem auf dem Atmega328p ges
 
 | Anforderungen | umgesetzt  |
 | ------------- | ---------- |
-| 0.            | ▒▒▒▒▒▒▒▒▒▒ |
+| 0.            | █████▒▒▒▒▒ |
 | 1.            | ██████████ |
 | 2.            | ██████████ |
 | 3.            | ▒▒▒▒▒▒▒▒▒▒ |
@@ -119,11 +119,17 @@ Umsetzungen der Projektanforderungen für ein Ampelsystem auf dem Atmega328p ges
 
 ## 0. Anwendungs-Anforderungen Leitsystem auf der Verkehrsstrecke Regensburg-Prüfening-III
 ### 0.1 Schaltung der Anlage an Werktagen (Mo-Fr)
-Nicht umgesetzt.
+> leitsystem/src/main
+
+Teilweise umgesetzt
 ### 0.2 Schaltung der Anlage an Samstagen
-Nicht umgesetzt.
+> leitsystem/src/main
+
+Teilweise umgesetzt
 ### 0.3 Schaltung der Anlage an Sonntagen
-Nicht umgesetzt.
+> leitsystem/src/main
+
+Teilweise umgesetzt
 ## 1. Technische Anforderungen Leuchtsystem der Ampelanlage
 ### 1.1 Ausstattung Leuchtmittel
 Done.
